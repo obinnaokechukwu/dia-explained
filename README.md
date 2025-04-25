@@ -181,36 +181,21 @@ This chapter provides instructions on how to set up the necessary environment an
 
 Before running Dia, you need to install the required Python libraries. It's highly recommended to use a virtual environment (like `venv` or `conda`) to avoid conflicts with other projects.
 
-1.  **Clone the Repository (if you haven't already):**
+1.  **Run the Gradio UI (if you have uv):**
     ```bash
-	git clone https://github.com/nari-labs/dia
-    cd dia
+git clone https://github.com/nari-labs/dia.git
+cd dia && uv run app.py
     ```
-    *(Assuming you have the code files provided)*
 
-2.  **Create and Activate a Virtual Environment (Recommended):**
-    *   Using `venv`:
+2.  **Run the Gradio UI (without uv):**
         ```bash
-        python -m venv venv
-        source venv/bin/activate  # On Windows: venv\Scripts\activate
+git clone https://github.com/nari-labs/dia.git
+cd dia
+python -m venv .venv
+source .venv/bin/activate
+pip install -e .
+python app.py
         ```
-    *   Using `conda`:
-        ```bash
-        conda create -n dia_env python=3.9 # Or desired version
-        conda activate dia_env
-        ```
-
-3.  **Install Dependencies:**
-    The primary dependencies include `torch`, `torchaudio`, `dac-pytorch`, `soundfile`, `numpy`, `gradio`, `huggingface_hub`, and `pydantic`. You can usually install these via pip. Ensure you install the correct PyTorch version for your hardware (CPU, CUDA, MPS). Visit the [PyTorch website](https://pytorch.org/) for specific installation commands.
-
-    ```bash
-    # Example installation (adjust PyTorch command based on your system)
-    pip install torch torchaudio --index-url https://download.pytorch.org/whl/cu118 # Example for CUDA 11.8
-    pip install dac-pytorch soundfile numpy gradio huggingface_hub pydantic transformers # Added transformers as it's often needed implicitly
-
-    # Or, if a requirements.txt file is provided:
-    # pip install -r requirements.txt
-    ```
 
 ### Running the Command-Line Interface (`cli.py`)
 
