@@ -952,30 +952,31 @@ Generates tokens one step (`dec_step`) at a time.
 
 ```mermaid
 sequenceDiagram
-    participant Loop as "Generation Loop"
+    participant GL as "Generation Loop"
     participant State as "DecoderInferenceState"
     participant Output as "DecoderOutput"
     participant Decoder as "model.decoder"
     participant Sampler as "_sample_next_token"
     participant CFG as "CFG Logic"
 
-    Loop->>State: prepare_step(dec_step)
-    Loop->>Output: get_tokens_at(dec_step)
-    Output-->>Loop: prev_tokens_Bx1xC
+    GL ->> State: prepare_step(dec_step)
+    GL ->> Output: get_tokens_at(dec_step)
+    Output -->> GL: prev_tokens_Bx1xC
 
-    Loop->>Decoder: decode_step(prev_tokens, State)
+    GL ->> Decoder: decode_step(prev_tokens, State)
     Note right of Decoder: Updates self_attn_cache internally
-    Decoder-->>Loop: logits_Bx1xCxV
+    Decoder -->> GL: logits_Bx1xCxV
 
-    Loop->>CFG: Apply CFG(logits, cfg_scale)
-    CFG-->>Loop: guided_logits_CxV
-    Loop->>Sampler: sample(logits[1], guided_logits, temp, top_p, cfg_filter_top_k)
-    Note right of Sampler: Applies CFG Filter Top-K,\nTemp, Top-P to logits[1]
-    Sampler-->>Loop: next_tokens_C (pred_C)
+    GL ->> CFG: Apply CFG(logits, cfg_scale)
+    CFG -->> GL: guided_logits_CxV
+    GL ->> Sampler: sample(logits[1], guided_logits, temp, top_p, cfg_filter_top_k)
+    Note right of Sampler: Applies CFG Filter Top-K, Temp, Top-P to logits[1]
+    Sampler -->> GL: next_tokens_C (pred_C)
 
-    Loop->>Loop: Check/Handle EOS(pred_C)
-    Loop->>Output: update_one(pred_C, dec_step + 1)
-    Loop->>Loop: Increment dec_step
+    GL ->> GL: Check/Handle EOS(pred_C)
+    GL ->> Output: update_one(pred_C, dec_step + 1)
+    GL ->> GL: Increment dec_step
+
 ```
 *Diagram: Simplified Decoder Step Sequence (Showing CFG Filter Step)*
 
