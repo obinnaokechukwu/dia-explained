@@ -1,4 +1,4 @@
----
+# Dia Explained
 
 # Dia Explained: A Deep Dive into the 1.6B Text-to-Dialogue TTS Model
 
