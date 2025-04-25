@@ -183,19 +183,19 @@ Before running Dia, you need to install the required Python libraries. It's high
 
 1.  **Run the Gradio UI (if you have uv):**
     ```bash
-git clone https://github.com/nari-labs/dia.git
-cd dia && uv run app.py
+    git clone https://github.com/nari-labs/dia.git
+    cd dia && uv run app.py
     ```
 
 2.  **Run the Gradio UI (without uv):**
-        ```bash
-git clone https://github.com/nari-labs/dia.git
-cd dia
-python -m venv .venv
-source .venv/bin/activate
-pip install -e .
-python app.py
-        ```
+   ```bash
+    git clone https://github.com/nari-labs/dia.git
+    cd dia
+    python -m venv .venv
+    source .venv/bin/activate
+    pip install -e .
+    python app.py
+   ```
 
 ### Running the Command-Line Interface (`cli.py`)
 
